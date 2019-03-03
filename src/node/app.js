@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 })); 
 
 app.use('/', router);
-app.use('/dist', express.static('dist'))
+app.use('/dist', express.static(__dirname + './../dist'))
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
