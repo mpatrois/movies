@@ -41,8 +41,9 @@ function update(req, res){
 }
 
 function store(req, res){
+    const maxId = Math.max(...movies.map((movie)=>movie.id));
     const newMovie = {
-        id: req.body.id,
+        id: maxId+1,
         title: req.body.title,
         year: req.body.year,
         lang: req.body.lang,
