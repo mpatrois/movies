@@ -23,13 +23,30 @@ function show(req, res){
     }
 }
 
+function update(req, res){
+    var id = parseInt(req.params.id);
+    let movie = movies.find((movie) => movie.id === id)
+    if(movie !== undefined){
+        movie.id = req.body.id,
+        movie.title = req.body.title,
+        movie.year = req.body.year,
+        movie.lang = req.body.lang,
+        movie.director = req.body.director,
+        movie.synopsis = req.body.synopsis,
+        movie.genre = req.body.genre
+        res.json(movie);
+    } else {
+        res.status(404).json(`Ce film n'existe pas`);
+    }
+}
+
 function store(req, res){
     const newMovie = {
         id: req.body.id,
         title: req.body.title,
         year: req.body.year,
         lang: req.body.lang,
-        director: null,
+        director: req.body.director,
         synopsis: req.body.synopsis,
         genre: req.body.genre
     }
@@ -50,5 +67,6 @@ module.exports = {
     index,
     show,
     store,
-    deleteMovie
+    deleteMovie,
+    update
 }

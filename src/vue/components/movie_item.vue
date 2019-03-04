@@ -10,7 +10,7 @@
     <br>Genre : {{ movie.genre }}
     <br>{{ movie.synopsis }}</p>
     <p>
-      <button type="button" v-on:click="$emit('edit')">Edit</button>
+      <button type="button" v-on:click="editMovie(movie.id)">Edit</button>
       <button type="button" v-on:click="$emit('destroy')" style="color:red;">Destroy</button>
     </p>
   </div>
@@ -24,6 +24,11 @@ export default {
     return {
       toggleDetails: false
     }
+  },
+  methods:{
+    editMovie: function(id) {
+     this.$router.push({ name: 'edit_movie', params: { id: id } });
+    },
   }
 }
 </script>

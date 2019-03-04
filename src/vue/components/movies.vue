@@ -16,13 +16,11 @@
     </div>
 
     <ul>
-      <li is="movie-item"
-          v-for="movie in movies"
-          v-bind:movie="movie"
-          v-bind:key="movie.id"
-          v-on:edit="editMovie(movie.id)"
-          v-on:destroy="destroyMovie(movie.id)">
-        </li>
+      <li v-for="movie in movies"  v-bind:key="movie.id">
+        <MovieItem
+          :movie="movie"
+          v-on:destroy="destroyMovie(movie.id)"/>
+      </li>
     </ul>
 
     <p>Nombre de films enregistrés : {{ movies.length }} <button type="button" v-on:click="popMovies">Pop</button></p>
@@ -31,7 +29,12 @@
 
 <script>
 import axios from "axios";
+import MovieItem from './movie_item';
+
 export default {
+  components:{
+    MovieItem
+  },
   data: function () {
     return {
       search: {
@@ -51,15 +54,13 @@ export default {
       this.movies.pop();
     },
 
-    editMovie: function(id) {
-     // this.$router.push({ name: 'edit_movie', params: { id: id } });
-    },
-
     destroyMovie: function(id) {
-      let index = this.movies.findIndex(item => item.id == id);
-      if (index !== -1) {
-        this.movies.splice(index, 1);
-      }
+      axios.delete(`/api/movies/${id}`).then((response)=>{
+        let index = this.movies.findIndex(item => item.id == id);
+        if (index !== -1) {
+          this.movies.splice(index, 1);
+        }
+      })
     }
   }
 }

@@ -5,7 +5,8 @@
   "author": "Marie Aude WU YOCK YENG <marie-aude.wu-yock-yeng@etu.u-bordeaux.fr>",
   "scripts": {
     "server": "node src/node/app.js",
-    "vue-compile": "node_modules/.bin/webpack"
+    "vue-compile": "node_modules/.bin/webpack",
+    "start": "npm run server | npm run vue-compile"
   },
   "dependencies": {
     "@babel/core": "^7.2.0",
