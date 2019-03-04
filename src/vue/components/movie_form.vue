@@ -1,5 +1,7 @@
 <template>
-    <form>
+    <form>        
+        <input type="file" @change="previewFiles" ref="inputFile">
+
         <label for="movie.title">Title : </label>
         <input type="text" v-model="movie.title" placeholder="Title" size="50"><br>
 
@@ -28,7 +30,12 @@
 
 <script>
 export default {
-    props:['movie']
+    props:['movie'],
+    methods: {
+        previewFiles(event) {
+            this.movie.poster = this.$refs.inputFile.files[0]
+        }
+    }
 }
 </script>
 

@@ -1,6 +1,7 @@
 <template>
 <li>
   <p v-on:click="toggleDetails = !toggleDetails"><strong>{{ movie.title }} ({{ movie.year }})</strong></p>
+  <img class="img-poster" :src="movie.posterPath"/>
   <div class="movie-details" v-if="toggleDetails">
     <p>
       <i>Réalisé par {{ movie.director.name }}
@@ -32,3 +33,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.img-poster{
+  max-width: 50px;
+}
+</style>

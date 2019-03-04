@@ -27,13 +27,13 @@ function update(req, res){
     var id = parseInt(req.params.id);
     let movie = movies.find((movie) => movie.id === id)
     if(movie !== undefined){
-        movie.id = req.body.id,
         movie.title = req.body.title,
         movie.year = req.body.year,
         movie.lang = req.body.lang,
         movie.director = req.body.director,
         movie.synopsis = req.body.synopsis,
         movie.genre = req.body.genre
+        movie.posterPath = req.file ? '/' + req.file.path : movie.posterPath
         res.json(movie);
     } else {
         res.status(404).json(`Ce film n'existe pas`);
@@ -49,7 +49,8 @@ function store(req, res){
         lang: req.body.lang,
         director: req.body.director,
         synopsis: req.body.synopsis,
-        genre: req.body.genre
+        genre: req.body.genre,
+        posterPath: req.file ? '/' + req.file.path : undefined
     }
     movies.push(newMovie);
     res.json(newMovie);

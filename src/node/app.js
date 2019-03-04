@@ -11,7 +11,11 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 })); 
 
 app.use('/', router);
+
 app.use('/dist', express.static(__dirname + './../dist'))
+app.use('/uploads', express.static(__dirname + './../../uploads'))
+
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })

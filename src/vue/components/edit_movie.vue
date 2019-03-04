@@ -33,7 +33,17 @@ export default {
             this.$router.push({ name: 'movies' });
         },
         update() {
-            axios.post(`/api/movies/${this.editingMovie.id}`, this.editingMovie).then(()=>{
+            var form_data = new FormData();
+
+            for ( var key in this.editingMovie ) {
+                form_data.append(key, this.editingMovie[key]);
+            }
+
+            axios.post(`/api/movies/${this.editingMovie.id}`, form_data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(()=>{
                 this.backToList();
             });
         }

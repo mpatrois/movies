@@ -35,7 +35,22 @@ export default {
             this.$router.push({ name: 'movies' });
         },
         createMovie() {
-            axios.post(`/api/movies/`, this.newMovie).then(()=>{
+
+            var form_data = new FormData();
+
+            for ( var key in this.newMovie ) {
+                console.log(this.newMovie[key]);
+                form_data.append(key, this.newMovie[key]);
+            }
+
+            console.log(form_data);
+            console.log(form_data);
+
+            axios.post(`/api/movies/`, form_data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(()=>{
                 this.backToList();
             });
         }
