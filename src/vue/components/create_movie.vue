@@ -37,15 +37,10 @@ export default {
         createMovie() {
 
             var form_data = new FormData();
-
-            for ( var key in this.newMovie ) {
-                console.log(this.newMovie[key]);
-                form_data.append(key, this.newMovie[key]);
-            }
-
-            console.log(form_data);
-            console.log(form_data);
-
+            form_data.append('poster', this.newMovie.poster);
+            delete this.newMovie.poster;
+            form_data.append('movie_data', JSON.stringify(this.newMovie));
+            
             axios.post(`/api/movies/`, form_data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'

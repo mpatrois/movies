@@ -25,14 +25,15 @@ function show(req, res){
 
 function update(req, res){
     var id = parseInt(req.params.id);
-    let movie = movies.find((movie) => movie.id === id)
+    let movie = movies.find((movie) => movie.id === id);
+    const newMovieData = JSON.parse(req.body.movie_data);
     if(movie !== undefined){
-        movie.title = req.body.title,
-        movie.year = req.body.year,
-        movie.lang = req.body.lang,
-        movie.director = req.body.director,
-        movie.synopsis = req.body.synopsis,
-        movie.genre = req.body.genre
+        movie.title = newMovieData.title,
+        movie.year = newMovieData.year,
+        movie.lang = newMovieData.lang,
+        movie.director = newMovieData.director,
+        movie.synopsis = newMovieData.synopsis,
+        movie.genre = newMovieData.genre
         movie.posterPath = req.file ? '/' + req.file.path : movie.posterPath
         res.json(movie);
     } else {
@@ -42,14 +43,15 @@ function update(req, res){
 
 function store(req, res){
     const maxId = Math.max(...movies.map((movie)=>movie.id));
+    const newMovieData = JSON.parse(req.body.movie_data);
     const newMovie = {
         id: maxId+1,
-        title: req.body.title,
-        year: req.body.year,
-        lang: req.body.lang,
-        director: req.body.director,
-        synopsis: req.body.synopsis,
-        genre: req.body.genre,
+        title: newMovieData.title,
+        year: newMovieData.year,
+        lang: newMovieData.lang,
+        director: newMovieData.director,
+        synopsis: newMovieData.synopsis,
+        genre: newMovieData.genre,
         posterPath: req.file ? '/' + req.file.path : undefined
     }
     movies.push(newMovie);

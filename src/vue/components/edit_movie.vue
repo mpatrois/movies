@@ -35,9 +35,9 @@ export default {
         update() {
             var form_data = new FormData();
 
-            for ( var key in this.editingMovie ) {
-                form_data.append(key, this.editingMovie[key]);
-            }
+            form_data.append('poster', this.editingMovie.poster);
+            delete this.editingMovie.poster;
+            form_data.append('movie_data', JSON.stringify(this.editingMovie));
 
             axios.post(`/api/movies/${this.editingMovie.id}`, form_data, {
                 headers: {
